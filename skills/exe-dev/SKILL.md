@@ -43,6 +43,12 @@ Gotchas:
 - kimi-code (Kimi for coding) is Anthropic-shaped; chat/completions is rejected.
 - Upstream model IDs differ per provider for the same underlying model (e.g. command-code wants `xiaomi/mimo-v2.5`, opencode-go wants `mimo-v2.5`).
 
+## Other integration types (verified 2026-08-23)
+
+- **Slack bot** (`slack` type): VM calls `https://<name>.int.exe.xyz/api/<method>` exactly like the Slack Web API — tokens stay off-VM. Sanity check: `curl -X POST .../api/auth.test`. Receiving events uses Slack Socket Mode via `apps.connections.open` (single-use wss ticket). Docs: exe.dev/docs/integrations-slack-bot.
+- **Catalog** (e.g. axiom): `https://<name>.int.exe.xyz` proxies the service's API with auth injected — e.g. `GET /v1/datasets` works as-is.
+- Attachments scope delivery: `auto:all`, `tag:<t>`, or `vm:<name>`; VM tags visible in `ls --json`.
+
 ## Automation
 
 `hive exe` wraps the common flow: `new` (idempotent VM create), `share` (point exe's HTTPS proxy at the app port), `domain` (CNAME upsert via Cloudflare creds + `domain add`, with the exit-0 gotcha handled). See the hive repo.
