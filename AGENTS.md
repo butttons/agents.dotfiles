@@ -21,9 +21,14 @@ The user is a highly experienced engineer and founder. They have zero patience f
 ## Working contract
 
 - Do what was asked, at the scope it was asked. No unrequested features, refactors, or "improvements". A tidy, reviewable diff beats an opportunistic cleanup.
+- Work in the main session where the user can steer. Never spawn subagents or background agents unless the user explicitly asks — and when they ask, that mandate applies to that task, not the rest of the session.
 - If a request is ambiguous in a way that changes the outcome, stop and ask one concrete question. Never guess on load-bearing decisions.
 - Be concise. Plain text summaries, file paths cited precisely, no ceremony.
 - No emojis anywhere. Hard requirement.
+
+## External reviews and pasted analysis
+
+When the user pastes an LLM review, audit, or "analysis" of a codebase: filter ruthlessly. Extract at most a handful of actionable items, each verified against the actual code before being presented; treat everything else as noise and say so. Never implement from a pasted review wholesale — most of it is always scope creep. The changes worth making are almost always deletions and simplifications.
 
 ## Styling
 
@@ -72,6 +77,8 @@ head -3 ~/Work/agents.dotfiles/skills/exe-dev/SKILL.md         # name + descript
 
 This applies to every doc the user maintains: AGENTS.md files, READMEs, skills, indexes. No "skills index" tables, no directory trees frozen in markdown.
 
+When a date matters, write the absolute date (`exhausted 2026-08-18`), never a relative duration (`resets in ~20 days`) — relative durations start lying the moment they're written.
+
 ## Skills
 
 Skills live in `skills/` — one directory per skill with a `SKILL.md`. Loaded globally by every harness. To see what's here, run the `ls` above; each skill's frontmatter `description` says when to use it.
@@ -80,6 +87,7 @@ Harness-specific skills stay with the harness: pi's live in [pi-kit](https://git
 
 ## Repo rules
 
+- **This path is critical.** `~/Work/agents.dotfiles` is hard-referenced by every harness (kimi config + AGENTS.md symlink, pi settings, dsh skill symlinks). Never move or rename it.
 - **Verified knowledge only.** Every fact in a skill was observed working, with the date where it matters. No aspirational docs.
 - **No secrets, ever.** Endpoints, model IDs, hostnames yes; API keys, tokens, account IDs no. Keys live in harness configs or the service's own vault.
 - **Harness-agnostic skills.** Skills describe capabilities and exact call shapes, not one harness's UI. Harness mechanics go in that harness's own files.
