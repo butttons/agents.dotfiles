@@ -16,9 +16,10 @@ Persistent Linux VMs (Cloud Hypervisor, exeuntu image, systemd + docker 29 prese
 
 ## CLI notes (verified 2026-08-23)
 
-- `ls`, `new --name=<n>`, `rm`, `restart`, `tag`, `domain`, `share`, `whoami`, `ssh-key`, `stat`. VM `ls` takes `--json`; parse it, never scrape stdout.
-- `integrations` subcommands: `list`, `add`, `edit`, `remove`, `attach`, `detach`, `setup`, `test`, `catalog`. **`integrations list` has no `--json`** and `test` does not apply to `llm`-type integrations.
-- `exe.dev new --name=x` is idempotent-ish; check `ls --json` first.
+Run `ssh exe.dev help` for the live command list — don't trust any static one, including this paragraph. What you can't get from help:
+
+- VM `ls` takes `--json`; parse it, never scrape stdout. **`integrations list` has no `--json`** and `integrations test` does not apply to `llm`-type integrations.
+- `new --name=x`: check `ls --json` first for idempotency.
 - `domain add` can fail on stdout with exit 0 and exe's resolver lags — always verify with `domain ls --json` and retry.
 - Custom domains: CNAME `<domain>` → `<vm>.exe.xyz`, DNS-only (proxied/orange-cloud breaks exe's TLS), then `ssh exe.dev domain add`.
 
