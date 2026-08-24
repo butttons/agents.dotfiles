@@ -49,6 +49,14 @@ Gotchas:
 - **Catalog** (e.g. axiom): `https://<name>.int.exe.xyz` proxies the service's API with auth injected — e.g. `GET /v1/datasets` works as-is.
 - Attachments scope delivery: `auto:all`, `tag:<t>`, or `vm:<name>`; VM tags visible in `ls --json`.
 
+## Verified additions (2026-08-24, zm-kit work)
+
+- `rename <old> <new>` exists and is instant; the DNS name changes too (`<new>.exe.xyz`). Update local known_hosts/scripts after.
+- `share set-public|set-private <vm>` toggles the exe proxy auth. Private = 307 to `/__exe.dev/login`.
+- `domain add <vm> <fqdn>` validates DNS BEFORE registering and needs the CNAME DNS-only (their TLS breaks under orange-cloud — 525/handshake-fail). If Cloudflare Access is wanted, do NOT use exe custom domains: run cloudflared on the VM (compose service, locally-managed config file + creds json, `cloudflared tunnel route dns` for the record) and put Access on the tunnel hostname. Token-mode (`run --token`) only works for remotely-managed tunnels; CLI-created tunnels have no remote config and 503 everything ("No ingress rules were defined").
+- GitHub integration: VMs can clone private repos key-free via `https://github.int.exe.xyz/<org>/<repo>.git` after `ssh exe.dev integrations` adds one. Prefer this over deploy keys.
+- Long docker builds on small VMs: the final "unpacking to ...:latest" step can sit silent for minutes — it's not hung.
+
 ## Automation
 
 `hive exe` wraps the common flow: `new` (idempotent VM create), `share` (point exe's HTTPS proxy at the app port), `domain` (CNAME upsert via Cloudflare creds + `domain add`, with the exit-0 gotcha handled). See the hive repo.
