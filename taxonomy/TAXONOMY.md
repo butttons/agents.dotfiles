@@ -6,7 +6,7 @@ The shared vocabulary of how Zomunk operates. Harvested from engineering session
 1. `Zomunk Points` — flight search product (points/miles angle)
    - Used via: none (internal)
 2. `Zomunk Deals` — curated flight-deal discovery platform
-   - Used via: zomunk portal toolkit_*, pouch-cms/pouch-git MCP (Bearer)
+   - Used via: zomunk portal toolkit_*, pouch_cms_*/pouch_git_*
 3. `Premium` — paid subscriber status; unlocks all deals/features
    - Used via: none (internal)
 4. `Plan` — subscription tier (Flights, Deals, full Premium) with per-provider pricing
@@ -90,7 +90,7 @@ The shared vocabulary of how Zomunk operates. Harvested from engineering session
 1. `Deal` — priced flight offer: route, dates, airline, cabin, old/new price
    - Used via: none (internal)
 2. `Best Deals` — curated top deals on landing pages, country-filtered (Pouch CMS)
-   - Used via: pouch-cms/pouch-git MCP (Bearer)
+   - Used via: zomunk portal pouch_cms_*/pouch_git_*
 3. `Masked Deal` — partial deal shown to non-premium users behind the paywall
    - Used via: none (internal)
 4. `Publish` — make a sourced deal live on the platform
@@ -210,9 +210,9 @@ The shared vocabulary of how Zomunk operates. Harvested from engineering session
 
 # Retention CRM
 1. `CRM Contacts` — Pouch Git collection with current retention state per user
-   - Used via: pouch-cms/pouch-git MCP (Bearer)
+   - Used via: zomunk portal pouch_cms_*/pouch_git_*
 2. `CRM Call Log` — Pouch Git collection logging each win-back call attempt
-   - Used via: pouch-cms/pouch-git MCP (Bearer)
+   - Used via: zomunk portal pouch_cms_*/pouch_git_*
 3. `Caller` — retention person calling churned users
    - Used via: none (internal)
 4. `Call Outcome` — result of a call (no answer, reactivated, etc.)
@@ -224,11 +224,11 @@ The shared vocabulary of how Zomunk operates. Harvested from engineering session
 
 # Content & CMS
 1. `Pouch CMS` — headless CMS: faqs, best_deals, landing_hero, landing_pages, testimonials
-   - Used via: pouch-cms/pouch-git MCP (Bearer)
+   - Used via: zomunk portal pouch_cms_*/pouch_git_*
 2. `Pouch Git` — Git-backed Pouch: crm_contacts, crm_call_log, findings, reviews
-   - Used via: pouch-cms/pouch-git MCP (Bearer)
+   - Used via: zomunk portal pouch_cms_*/pouch_git_*
 3. `Collection` — CMS content type with JSON schema; admin vs runtime API keys
-   - Used via: pouch-cms MCP, pouch-git MCP
+   - Used via: zomunk portal pouch_cms_*/pouch_git_*
 4. `OG Image` — 1200x630 social preview from og-worker (deal / static templates)
    - Used via: raw API — apps/og-worker (satori/workers-og)
 5. `Wishlist Image` — deterministic map-rendered image replacing stock photos
