@@ -26,23 +26,23 @@ Tooling, infrastructure, and codebase-pattern vocabulary. Companion to TAXONOMY.
 
 # Cloudflare Platform
 1. `Workers` — serverless edge compute runtime for everything
-   - Used via: executor cloudflare_mcp, exe cloudflare-zomunk
+   - Used via: zomunk portal cloudflare_* (3 tools), exe cloudflare-zomunk
 2. `D1` — SQLite database, one per product domain (app-deal, app-auth, app-billing, mobile-app)
-   - Used via: executor cloudflare_mcp, exe cloudflare-zomunk
+   - Used via: zomunk portal cloudflare_* (3 tools), exe cloudflare-zomunk
 3. `KV` — key-value store: APP_CACHE_KV, AUTH_SESSION_KV, config
-   - Used via: executor cloudflare_mcp, exe cloudflare-zomunk
+   - Used via: zomunk portal cloudflare_* (3 tools), exe cloudflare-zomunk
 4. `R2` — object storage for media (country media bucket)
-   - Used via: executor cloudflare_mcp, exe cloudflare-zomunk
+   - Used via: zomunk portal cloudflare_* (3 tools), exe cloudflare-zomunk
 5. `Queues` — async message processing (audit flush, consumers)
-   - Used via: executor cloudflare_mcp, exe cloudflare-zomunk
+   - Used via: zomunk portal cloudflare_* (3 tools), exe cloudflare-zomunk
 6. `Workflows` — durable multi-step job engine
-   - Used via: executor cloudflare_mcp, exe cloudflare-zomunk
+   - Used via: zomunk portal cloudflare_* (3 tools), exe cloudflare-zomunk
 7. `Service Binding` — direct worker-to-worker calls (e.g. Flaggly)
-   - Used via: executor cloudflare_mcp, exe cloudflare-zomunk
+   - Used via: zomunk portal cloudflare_* (3 tools), exe cloudflare-zomunk
 8. `Cron Trigger` — scheduled jobs: trending score, shadow-vote promotion
-   - Used via: executor cloudflare_mcp, exe cloudflare-zomunk
+   - Used via: zomunk portal cloudflare_* (3 tools), exe cloudflare-zomunk
 9. `Secrets Store` — centralized secrets via secrets_store_secrets binding
-   - Used via: executor cloudflare_mcp, exe cloudflare-zomunk
+   - Used via: zomunk portal cloudflare_* (3 tools), exe cloudflare-zomunk
 10. `waitUntil` — extend execution after response for fire-and-forget work
    - Used via: none (internal)
 11. `Ray ID` — cf-ray request identifier used as log base field
@@ -122,11 +122,11 @@ Tooling, infrastructure, and codebase-pattern vocabulary. Companion to TAXONOMY.
 
 # Observability
 1. `Axiom` — log aggregation and query platform
-   - Used via: executor axiom_mcp, exe axiom-zomunk
+   - Used via: zomunk portal axiom_*, exe axiom-zomunk
 2. `cf-logs / cf-traces` — Axiom datasets for worker logs and traces
-   - Used via: executor axiom_mcp, exe axiom-zomunk
+   - Used via: zomunk portal axiom_*, exe axiom-zomunk
 3. `APL` — Axiom Processing Language for queries
-   - Used via: executor axiom_mcp, exe axiom-zomunk
+   - Used via: zomunk portal axiom_*, exe axiom-zomunk
 4. `createLogger` — structured logger; base fields snake_case (ray_id, user_id, workflow_id)
    - Used via: none (internal)
 5. `is_debug` — verbose logging flag
@@ -151,10 +151,10 @@ Tooling, infrastructure, and codebase-pattern vocabulary. Companion to TAXONOMY.
    - Used via: none (internal)
 9. `fff` — mandated file finder/grep MCP (never shell rg/find)
    - Used via: none (internal)
-10. `Executor` — sandboxed TS runtime exposing all integrations (executor-zomunk MCP)
-   - Used via: executor-zomunk MCP — https://executor-zomunk.zomunk.workers.dev/mcp, exe llm, exe reflection
+10. `Zomunk portal` — Cloudflare MCP portal exposing Zomunk integrations (Linear, Axiom, Mixpanel, Toolkits, Cloudflare) via codemode; replaced the hosted Executor
+   - Used via: exe llm, exe reflection
 11. `Linear` — project management integration
-   - Used via: executor linear_mcp, exe linear-zomunk
+   - Used via: zomunk portal linear_*, exe linear-zomunk
 12. `Playwright` — e2e suite in apps/web-worker/e2e against herdr dev servers
    - Used via: none (internal)
 13. `vitest` — unit tests (@cloudflare/vitest-pool-workers)

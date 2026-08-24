@@ -49,15 +49,14 @@ When the user pastes an LLM review, audit, or "analysis" of a codebase: filter r
 - Never hand-edit pnpm-lock.yaml. Use `minimumReleaseAgeExclude` (not `overrides`) to satisfy an age gate unless the repo already uses overrides.
 - When searching with `find` via bash, always ignore `node_modules` unless explicitly told otherwise.
 
-## Executor (integrations backbone)
+## MCP portals (integrations backbone)
 
-All external integrations go through Executor. Three instances exist; pick by which connections you need:
+All external integrations go through Cloudflare MCP portals — one per org, connected as MCP servers `zapify` and `zomunk`.
 
-- **Local daemon** — integrations + OAuth secrets in `~/.executor/data.db` + `~/.executor/auth.json` under the `.executor-8b79e655` tenant, UI at `http://localhost:4789/integrations/`. Always start with the global scope: `executor daemon run --port 4789 --scope /Users/yash/.executor`. Running it without `--scope` from a project directory creates a bare cwd-scoped tenant with no integrations. Daemon state files: `~/.executor/daemon-*.json` (check `scopeId`). Carries the GitHub (`github_rest`) connection.
-- **Hosted (zapify)** — MCP server `executor_zapify`. Connections: axiom, cloudflare, linear, posthog.
-- **Hosted (zomunk)** — `https://executor-zomunk.zomunk.workers.dev/mcp`. Connections: axiom, cloudflare, linear, mixpanel, pouch_cms, pouch_git, toolkit.
+- **Zapify portal** — upstreams: Linear, Cloudflare, Axiom, PostHog (plus first-party `zapify-tool` / `zapify-code` lanes). Code mode: discover with `zapify_portal_codemode_search({ code })` (`codemode.tools()`), call with `zapify_portal_codemode_execute({ code })` via the `codemode.<tool>(args)` proxy.
+- **Zomunk portal** — upstreams: Linear, Axiom, Mixpanel, Toolkit (mac-mini, VM). Tools are exposed directly (`zomunk_linear_*`, `zomunk_axiom_*`, `zomunk_mixpanel_*`, `zomunk_toolkit-*_*`).
 
-Call shapes differ per harness — pi: `tools.call({ ref: "executor.call", args })` via fabric_exec against the local daemon, `extensions.executor_zapify_execute({ code })` for zapify; dsh: `mcp__executor__*` tools; kimi-code: MCP tools or the cf-mono `executor-zomunk` skill. Everywhere: results are `{ ok, data }` / `{ ok: false, error }` unions — branch on `ok`.
+Manage enabled upstreams with `<portal>_portal_list_servers` / `<portal>_portal_toggle_single_server`. Always fetch a tool's schema before calling it. MCP responses come back as content envelopes (`content[].text`) — parse the text payload.
 
 ## Target discipline
 

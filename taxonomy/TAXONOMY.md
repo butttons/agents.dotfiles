@@ -6,7 +6,7 @@ The shared vocabulary of how Zomunk operates. Harvested from engineering session
 1. `Zomunk Points` — flight search product (points/miles angle)
    - Used via: none (internal)
 2. `Zomunk Deals` — curated flight-deal discovery platform
-   - Used via: executor toolkit_mcp, executor pouch_cms
+   - Used via: zomunk portal toolkit_*, pouch-cms/pouch-git MCP (Bearer)
 3. `Premium` — paid subscriber status; unlocks all deals/features
    - Used via: none (internal)
 4. `Plan` — subscription tier (Flights, Deals, full Premium) with per-provider pricing
@@ -90,13 +90,13 @@ The shared vocabulary of how Zomunk operates. Harvested from engineering session
 1. `Deal` — priced flight offer: route, dates, airline, cabin, old/new price
    - Used via: none (internal)
 2. `Best Deals` — curated top deals on landing pages, country-filtered (Pouch CMS)
-   - Used via: executor pouch_cms
+   - Used via: pouch-cms/pouch-git MCP (Bearer)
 3. `Masked Deal` — partial deal shown to non-premium users behind the paywall
    - Used via: none (internal)
 4. `Publish` — make a sourced deal live on the platform
-   - Used via: executor toolkit_mcp
+   - Used via: zomunk portal toolkit_*
 5. `Source` — where a deal came from (scraper or creator-submitted)
-   - Used via: executor toolkit_mcp
+   - Used via: zomunk portal toolkit_*
 6. `Departure City` — origin city; core deal filter and user preference
    - Used via: none (internal)
 7. `Seat Class` — economy / premium economy / business / first
@@ -106,7 +106,7 @@ The shared vocabulary of how Zomunk operates. Harvested from engineering session
 9. `PriceLine` — low/typical/high price bar UI on deal pages
    - Used via: none (internal)
 10. `Deal Score` — AI-scored deal quality metric
-   - Used via: executor toolkit_mcp
+   - Used via: zomunk portal toolkit_*
 11. `Deal Slug` — human-readable URL from city names
    - Used via: none (internal)
 12. `Similar Deals` — related deals on a deal detail page
@@ -188,7 +188,7 @@ The shared vocabulary of how Zomunk operates. Harvested from engineering session
 4. `Identify` — user-property enrichment sent to all providers
    - Used via: raw API — packages/app-utils/src/tracker/client.ts:147
 5. `Mixpanel` — product analytics
-   - Used via: executor mixpanel_mcp, raw API — packages/app-utils/src/mixpanel.ts:73
+   - Used via: zomunk portal mixpanel_*, raw API — packages/app-utils/src/mixpanel.ts:73
 6. `PostHog` — product analytics (newer events, funnel metrics)
    - Used via: raw API — scripts/finance/deck-v2/generate-03-funnel.ts:45
 7. `Customer.io` — lifecycle email/push messaging
@@ -210,9 +210,9 @@ The shared vocabulary of how Zomunk operates. Harvested from engineering session
 
 # Retention CRM
 1. `CRM Contacts` — Pouch Git collection with current retention state per user
-   - Used via: executor pouch_git
+   - Used via: pouch-cms/pouch-git MCP (Bearer)
 2. `CRM Call Log` — Pouch Git collection logging each win-back call attempt
-   - Used via: executor pouch_git
+   - Used via: pouch-cms/pouch-git MCP (Bearer)
 3. `Caller` — retention person calling churned users
    - Used via: none (internal)
 4. `Call Outcome` — result of a call (no answer, reactivated, etc.)
@@ -224,11 +224,11 @@ The shared vocabulary of how Zomunk operates. Harvested from engineering session
 
 # Content & CMS
 1. `Pouch CMS` — headless CMS: faqs, best_deals, landing_hero, landing_pages, testimonials
-   - Used via: executor pouch_cms
+   - Used via: pouch-cms/pouch-git MCP (Bearer)
 2. `Pouch Git` — Git-backed Pouch: crm_contacts, crm_call_log, findings, reviews
-   - Used via: executor pouch_git
+   - Used via: pouch-cms/pouch-git MCP (Bearer)
 3. `Collection` — CMS content type with JSON schema; admin vs runtime API keys
-   - Used via: executor pouch_cms, executor pouch_git
+   - Used via: pouch-cms MCP, pouch-git MCP
 4. `OG Image` — 1200x630 social preview from og-worker (deal / static templates)
    - Used via: raw API — apps/og-worker (satori/workers-og)
 5. `Wishlist Image` — deterministic map-rendered image replacing stock photos
@@ -244,17 +244,17 @@ The shared vocabulary of how Zomunk operates. Harvested from engineering session
 3. `LTV` — customer lifetime value
    - Used via: none (internal)
 4. `Cohort` — subscribers grouped by activation month for churn analysis
-   - Used via: executor mixpanel_mcp
+   - Used via: zomunk portal mixpanel_*
 5. `Retention Rate` — percentage of a cohort that renewed
-   - Used via: executor mixpanel_mcp
+   - Used via: zomunk portal mixpanel_*
 6. `DAU / WAU / MAU` — active-user counts
-   - Used via: executor mixpanel_mcp, raw API — scripts/finance/deck-v2/generate-03-funnel.ts:45 (PostHog historical)
+   - Used via: zomunk portal mixpanel_*, raw API — scripts/finance/deck-v2/generate-03-funnel.ts:45 (PostHog historical)
 7. `NPS` — net promoter score
    - Used via: none (internal)
 8. `Conversion Rate` — signups → paid users
-   - Used via: executor mixpanel_mcp
+   - Used via: zomunk portal mixpanel_*
 9. `Ad Spend` — Meta advertising budget ingested hourly to Axiom
-   - Used via: executor axiom_mcp, exe axiom-zomunk
+   - Used via: zomunk portal axiom_*, exe axiom-zomunk
 10. `Unit Economics` — per-user metrics bundle: ARPU, ARPPU, LTV, conversion
    - Used via: none (internal)
 11. `Segments` — revenue markets: India, ME Dubai, ME Saudi, ME Rest, Global Points, US/Canada
