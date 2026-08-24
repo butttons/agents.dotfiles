@@ -76,6 +76,8 @@ head -3 ~/Work/agents.dotfiles/skills/exe-dev/SKILL.md         # name + descript
 
 This applies to every doc the user maintains: AGENTS.md files, READMEs, skills, indexes. No "skills index" tables, no directory trees frozen in markdown.
 
+Same rule for integration/tool docs: never mirror a server's tool list in a doc — it rots the moment the server changes. Teach discovery instead (e.g. `codemode.tools()` filtered by prefix, read `inputSchema` before calling). Where bash can't fetch the data (MCP calls, SDKs), give pseudocode/TypeScript usage patterns with placeholder variables plus a real example value per variable (`slug: '<collection-slug>' // e.g. 'testimonials'`). Never hardcode record IDs, slugs, or query results as if they were constants. Keep only what a command can't tell you: gotchas, verified call shapes, envelope quirks.
+
 When a date matters, write the absolute date (`exhausted 2026-08-18`), never a relative duration (`resets in ~20 days`) — relative durations start lying the moment they're written.
 
 ## Skills
