@@ -233,7 +233,7 @@ There is no single cross-vault search command. Search each vault individually.
 
 ## Vault Flag
 
-`--vault` accepts a vault name (e.g. `Work`, `Zomunk`). If omitted:
+`--vault` accepts a vault name (e.g. `Work`, `Personal`). If omitted:
 
 1. If cwd is inside a vault, obi uses that vault automatically.
 2. Otherwise it checks for `default_vault` in global config.

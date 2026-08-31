@@ -51,10 +51,7 @@ When the user pastes an LLM review, audit, or "analysis" of a codebase: filter r
 
 ## MCP portals (integrations backbone)
 
-All external integrations go through Cloudflare MCP portals — one per org, connected as MCP servers `zapify` and `zomunk`.
-
-- **Zapify portal** — upstreams: Linear, Cloudflare, Axiom, PostHog (plus first-party `zapify-tool` / `zapify-code` lanes). Code mode: discover with `zapify_portal_codemode_search({ code })` (`codemode.tools()`), call with `zapify_portal_codemode_execute({ code })` via the `codemode.<tool>(args)` proxy.
-- **Zomunk portal** — upstreams: Linear, Axiom, Mixpanel, Toolkit (mac-mini, VM). Tools are exposed directly (`zomunk_linear_*`, `zomunk_axiom_*`, `zomunk_mixpanel_*`, `zomunk_toolkit-*_*`).
+All external integrations go through Cloudflare MCP portals — one per org. Each portal exposes its upstream tools directly; tool names follow a `<portal>_<upstream>_<operation>` convention.
 
 Manage enabled upstreams with `<portal>_portal_list_servers` / `<portal>_portal_toggle_single_server`. Always fetch a tool's schema before calling it. MCP responses come back as content envelopes (`content[].text`) — parse the text payload.
 
